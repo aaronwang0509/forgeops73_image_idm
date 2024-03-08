@@ -7,14 +7,13 @@ pipeline {
         MINOR_VERSION = '30'
     }
     stages {
-        /* openidm/bin and dockerfile may have problems
         stage('Build and Push idm Image') {
             steps {
                 script {
                     def imageName = "${env.IMAGE_NAME}"
                     def fullVersion = "${env.MAJOR_VERSION}.${env.MINOR_VERSION}.${env.BUILD_NUMBER}"
-                    dir('openidm/bin') {
-                        docker.build("${imageName}:${fullVersion}")
+                    dir('openidm') {
+                        sh "docker build -t ${imageName}:${fullVersion} -f bin/Custom.Dockerfile ."
                         docker.withRegistry('https://index.docker.io/v1/', env.DOCKERHUB_CREDENTIALS_ID) {
                             docker.image("${imageName}:${fullVersion}").push()
                         }
@@ -22,7 +21,6 @@ pipeline {
                 }
             }
         }
-        */
         stage('Build and Push idm-build Image') {
             steps {
                 script {
