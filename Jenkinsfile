@@ -7,6 +7,7 @@ pipeline {
         MINOR_VERSION = '30'
     }
     stages {
+        /* openidm/bin and dockerfile may have problems
         stage('Build and Push idm Image') {
             steps {
                 script {
@@ -21,6 +22,7 @@ pipeline {
                 }
             }
         }
+        */
         stage('Build and Push idm-build Image') {
             steps {
                 script {
